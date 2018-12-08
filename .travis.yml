@@ -1,0 +1,22 @@
+language: python
+python:
+- 3.6
+sudo: required
+env:
+  global:
+  - TRAVIS_CI_OPERATOR=1
+  - secure: xcjVGkZv0y8maN3FJBlO+CoCYlO4VUrErZETANP7IyJXr0sq/XxXjMIY3EFcp0x0ds+zuWx5uKZ0Tn2TWValo/sfku8VZy6GRcb0z5YJYZ49cbQ/U4FxIhsI3oipyIpXsAgktdvZy9csRQdrIz+WMNy0dCKHqAyOIl9N/cOCtJ0r3oohmnLlhj1t1mpIu7dTgwLKhWEtnJA+aQgb6S+AfwxaqZCdz/UTdRB2hoDL1lGE26MdDQa2yqKJXa4sfqvcERIPUzmpE77CMNrWI9Aypum8ho4DS8wSmWLcjKb9NrGJL/VS70FjEBUP3QGp+6XTPMYYm6nZsy4O512cWV7pdypSeFADe5rNQOhsKWzVIMfsSnsEcBppX0vbLqesHeZjwEFW2u58GsJ3Cif7aXMX0cE88VEJXIT6kkuPy+Tvxu5RnsHeOPhoyO5az0ovZdbpZNvPZyQK+stPhe+Daj4FiGOoZO1cbLiLhpmFQ8J/VsZ2YuZebdcvS8gi/vZkAqUy47afZu2QM9kALcXSKSA6IPnzVJfxR5l7pkQfB42OXnhudN+2bjOsKjFSlpQ4i94BS8B3E67DTvGOiVUVL1ebPqqwlRXgqSayo5NhRs4TcEUtRH3wxZx50Ib5n9Q30TVC2KnrdJsAcPbBJD4/5zSaq0gASTVfzZ97fVl5bpe+cbw=
+  - secure: slV22fhZkAGiM9N+tUpweE5pJlXUWen9XDi2TDTS4B8humpEcpnP6z8aWoj8DBkjGx0ZsHya778N1VyCK+r8tWdE0KNVL3Sms6Ic1TILoAkQVTqskPhH3Pq7EU1JEY6DUGa5YtM9Mal6MCUWkFjxLSvOhUDDgfaOFNZGTxvRHE80T3SLSrreXDQBzOVNk7PtNFZVZrcCnQTZkc35gAo//K74XRNqrgtutNJqrIfEdUHQu1VowJ7ll+wpUxIsehscdc8d4+Yp2PJutOBipqLorrJTWxXpAxUIq/gAlqcOZzxw7I4qlaxqFdMYKlHyoKgAA/CpQH5VpvpZEhZTEykcytmrtGh9DrYayLJVkKvwF6BAz4eh/qhssoQefrwak5SG5NNQx4fI/wPz67TQj+HEDm0EpaM6kFgTBDyZegHsN8TnehWLdtR68XU4iIqCWv62qdvqQFRNSJRdK4m7dd4/cD9SnwRaxWvcgwlmXmZKhPvMJzjpszTDyKrT1x5iYsA83sSnz/BMnFyVwo42nvnRB0ag0MguQPpysxYwm63s6gyiNGOheqcvZySxbvvxqaRZK01V0FT5Y/ERTB+kzUQ1VrXWca42SMb2ghlSFvDQ3Z5qXCEfmi+V3CbWS/QdkffFgsCZkvoqGsDKDRnjkODkZHoNe+lavubZgaJWYY23vN4=
+services:
+- docker
+install:
+- bash .travis.sh install
+script:
+- bash .travis.sh script
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash .travis.sh deploy
+  on:
+    all_branches: true
+    condition: $TRAVIS_PULL_REQUEST = "false"
