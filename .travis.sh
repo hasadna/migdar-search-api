@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOCKER_IMAGE=hasadna/migdar-ui
+DOCKER_IMAGE=hasadna/migdar-search-api
 
 if [ "${1}" == "install" ]; then
     curl -L https://raw.githubusercontent.com/OriHoch/travis-ci-operator/master/travis_ci_operator.sh > $HOME/bin/travis_ci_operator.sh &&\
