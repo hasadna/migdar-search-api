@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 blueprint = apies_blueprint(app,
     [
-        'http://pipelines/data/publications_for_es/datapackage.json'
+        'http://pipelines/data/published_in_es/datapackage.json'
     ],
     elasticsearch.Elasticsearch([dict(host=ES_HOST, port=ES_PORT)], timeout=60),
     INDEX_NAME,
