@@ -22,14 +22,8 @@ blueprint = apies_blueprint(app,
     ],
     elasticsearch.Elasticsearch([dict(host=ES_HOST, port=ES_PORT)], timeout=60),
     INDEX_NAME,
-    # dont_highlight={
-    #     'kind',
-    #     'kind_he',
-    #     'budget_code',
-    #     'entity_kind',
-    #     'entity_id',
-    #     'code',
-    # },
+    multi_match_type='most_fields',
+    multi_match_operator='or'
 )
 app.register_blueprint(blueprint, url_prefix='/')
 
