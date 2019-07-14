@@ -7,7 +7,6 @@ from flask_cors import CORS
 
 from apies import apies_blueprint
 
-DATAPACKAGE_BASE = 'http://pipelines/datapackages/{}/datapackage.json'
 ES_HOST = os.environ.get('ES_HOST', 'localhost')
 ES_PORT = int(os.environ.get('ES_PORT', '9200'))
 INDEX_NAME = os.environ.get('INDEX_NAME', 'migdar')
@@ -16,7 +15,7 @@ app = Flask(__name__)
 CORS(app)
 blueprint = apies_blueprint(app,
     [
-        'http://pipelines/data/published_in_es/datapackage.json',
+        'http://pipelines/data/publications_in_es/datapackage.json',
         'http://pipelines/data/orgs_in_es/datapackage.json',
         'http://pipelines/data/datasets_in_es/datapackage.json',
     ],
