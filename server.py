@@ -11,7 +11,7 @@ from apies import apies_blueprint
 BASE = 'http://api.yodaat.org/data/{}_in_es/datapackage.json'
 ES_HOST = os.environ.get('ES_HOST', 'localhost')
 ES_PORT = int(os.environ.get('ES_PORT', '9200'))
-INDEX_NAME = os.environ.get('INDEX_NAME', 'migdar')
+# INDEX_NAME = os.environ.get('INDEX_NAME', 'migdar')
 
 def rules(field):
     if field.get('es:title') or field.get('es:hebrew'):
@@ -29,17 +29,20 @@ def rules(field):
     else:
         return [('inexact', '')]
 
+TYPES = [
+    'publications', 'orgs', 'datasets',
+]
 
 app = Flask(__name__)
 CORS(app)
 blueprint = apies_blueprint(app,
-    [
-        BASE.format('publications'),
-        BASE.format('orgs'),
-        BASE.format('datasets'),
-    ],
+    [BASE.format(t) for t in TYPES],
     elasticsearch.Elasticsearch([dict(host=ES_HOST, port=ES_PORT)], timeout=60),
-    INDEX_NAME,
+    dict(
+        (t, 'migdar__%s' % t)
+        for t in TYPES
+    ),
+    'migdar__docs',
     multi_match_type='best_fields',
     multi_match_operator='and',
     dont_highlight='*',
